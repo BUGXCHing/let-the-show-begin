@@ -37,3 +37,13 @@
 所有本机日志都被 `.gitignore` 排除；复现步骤见 [TESTING](TESTING.md)。
 
 2026-10-04 发布准备仅更新交互理念和开源说明，玩法源码与已验证的 WebGL 构建未改动。
+
+## 2026-10-05 GitHub Pages 公开试玩验证
+
+- 地址：<https://bugxching.github.io/let-the-show-begin/>。
+- [发布任务](https://github.com/BUGXCHing/let-the-show-begin/actions/runs/37218201544) 的转换、上传和部署均成功；主分支提交 `eff8cb1`，网页构建分支提交 `8b6fc0e`。
+- 复用上述最终 WebGL 构建，仅将 Brotli 文件转换为普通静态资源并更改加载路径；未修改游戏逻辑，没有在线编译 Unity。
+- 公开 HTML、DATA、JS、WASM 均返回 200；WASM 类型为 `application/wasm`。实际响应支持 gzip 传输压缩，主要资源首次传输合计约 14.6 MB，解压后的部署文件约 46.5 MB。
+- 使用公开域名实际进入战斗，观察到敌人攻击和生命变化，键盘重开与暂停正常；浏览器控制台未记录 error。
+- 控制台存在 URP FSR 升采样着色器不支持的 warning，画面仍正常显示。本次不修改玩法或渲染设置来掩盖已有警告。
+- 不依赖本机服务器或临时隧道。移动端双指和中国大陆不同网络的实际可用性仍待试玩者验证，不能由这次桌面测试代替。
