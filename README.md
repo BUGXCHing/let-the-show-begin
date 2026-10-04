@@ -1,4 +1,6 @@
-# 好戏开演 · Haoxi Kaiyan
+# Let the Show Begin · 好戏开演
+
+A Unity dual-stick combat experiment inspired by hands-on weapon interaction in VR. Move with the left stick and steer your weapon with the right: your weapon's motion is the attack, rather than a button-triggered move. Together, the two sticks create the feeling of guiding a dancing marionette.
 
 一个区别于传统“移动摇杆 + 攻击按钮”的双摇杆战斗交互原型。左摇杆控制走位，右摇杆直接牵引武器运动；两个摇杆配合，让握腕、手臂、躯干和脚步跟着转动，形成操控提线木偶的感觉。玩家画出的武器轨迹本身就是攻击，而不是按下按钮后播放一套预制招式。
 
@@ -91,3 +93,7 @@ python3 tools/serve_webgl.py --port 8765
 欢迎按 [贡献指南](CONTRIBUTING.md) 提交复现、修复和玩法实验。项目代码、工具与文档采用 [MIT 许可](LICENSE)，欢迎自由使用。
 
 我们希望这个项目成为技术讨论和游戏交互设计交流的起点。你可以免费学习、复制、修改、商用和分发项目代码，也可以把其中的模块合并到自己的开源或闭源作品中，不要求衍生项目公开源码。只需随代码保留已有版权与许可文件，不需要向我们申请授权。欢迎分享灵感和改进，也可以直接拿去实验。
+
+如果你有进一步的灵感、交互设计思路或自己的玩法实验，也欢迎在 [Issues](https://github.com/BUGXCHing/let-the-show-begin/issues) 中交流。无论是刚入门，还是已经在开发自己的游戏，都欢迎一起探讨；我们也希望通过这个项目结识更多开发者朋友。
+
+Have an idea for a new interaction, a design direction, or your own gameplay experiment? Share it in [Issues](https://github.com/BUGXCHing/let-the-show-begin/issues). Beginners and experienced developers alike are welcome—we hope this project helps us learn from one another and meet more developer friends.
