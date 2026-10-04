@@ -1,7 +1,0 @@
-{
-  "name": "HaoxiKaiyan.Tests.Editor",
-  "rootNamespace": "HaoxiKaiyan.Tests",
-  "references": ["HaoxiKaiyan.Runtime"],
-  "includePlatforms": ["Editor"],
-  "optionalUnityReferences": ["TestAssemblies"]
-}
