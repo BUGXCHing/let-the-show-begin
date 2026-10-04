@@ -1,0 +1,16 @@
+* text=auto
+*.cs text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.asmdef text eol=lf
+*.py text eol=lf
+*.sh text eol=lf
+*.meta text eol=lf
+*.unity text eol=lf
+*.asset text eol=lf
+*.mat text eol=lf
+*.ttf binary
+*.png binary
+*.jpg binary
+*.br binary
+*.zip binary

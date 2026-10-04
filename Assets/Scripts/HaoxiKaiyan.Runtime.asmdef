@@ -1,0 +1,6 @@
+{
+  "name": "HaoxiKaiyan.Runtime",
+  "rootNamespace": "HaoxiKaiyan",
+  "references": ["Unity.InputSystem", "Unity.ugui"],
+  "autoReferenced": true
+}
