@@ -37,7 +37,7 @@ python3 tools/serve_webgl.py --port 8765
 
 打开 `http://127.0.0.1:8765/`，首次加载完成后实际进入战斗。构建只包含 `HaoxiArena` 场景。工具与 NUnit 测试在 Editor 目录／程序集，探针组件通过 `UNITY_EDITOR` 条件编译排除，不进入 WebGL。编辑源码不会自动更新已有网页，必须重新构建。
 
-WebGL 使用 Brotli 压缩。部署服务器须给 `.br` 资源发送 `Content-Encoding: br`，WASM 类型为 `application/wasm`，JS 类型为 `application/javascript`。`serve_webgl.py` 已实现这些头，并支持文件 URL 带查询字符串。若托管服务不能配置这些头，可改 Unity 压缩设置后重建，或使用支持这些配置的静态托管。
+WebGL 使用 Brotli 压缩。直接部署 `.br` 时，服务器须发送 `Content-Encoding: br`，WASM 类型为 `application/wasm`，JS 类型为 `application/javascript`。`serve_webgl.py` 已实现这些头，并支持文件 URL 带查询字符串。GitHub Pages 采用下面的转换步骤，不依赖自定义压缩响应头。
 
 若增量构建出现原生链接重复符号或过期 IL2CPP 符号，先检查错误指向的生成文件，不要修改玩法来掩盖缓存问题。可运行 `bash tools/unity.sh clean-build`，通过 Unity 的 `BuildOptions.CleanBuildCache` 清理构建缓存后重建；它比正常增量构建慢，不应每次使用。源码包不会分发 Library 或 Data 下的旧编译产物。
 
@@ -58,4 +58,30 @@ python3 tools/package_release.py --kind all
 
 源码提交到仓库；源码 ZIP 与 WebGL ZIP 可作为 Release 附件。`.gitignore` 默认忽略构建和发布包。README 不保存会失效的临时隧道地址；部署完成后再添加实际长期试玩链接。
 
-目前提供本地可重复验证命令，没有已配置的云端 Unity CI。在线构建需要独立配置 Unity 许可、对应编辑器与 Web 模块。
+## 长期试玩：GitHub Pages
+
+入口：<https://bugxching.github.io/let-the-show-begin/>。主分支保存源码，`web-demo` 分支保存已构建的网页文件。`.github/workflows/pages.yml` 在 GitHub 中解压 Brotli 文件、更新加载路径并部署，无须在线运行 Unity，也不需要 Unity 云端许可。
+
+重新发布：
+
+1. 在本机修改源码、验证并重新构建网页。
+2. 使用 Node.js 24 准备新的发布目录（输出目录必须为空或不存在）：
+
+   ```sh
+   node tools/prepare_pages.mjs --output Releases/pages-upload --keep-compressed
+   ```
+
+3. 将该目录内容更新到 `web-demo` 分支的根目录，不要提交 Unity 缓存或整个工程。
+4. 在仓库 Actions → Publish playable demo → Run workflow 中选择 `main`。修改主分支的发布脚本或工作流也会自动部署。
+5. 等待部署成功，再打开公开链接确认进入战斗，并用真机测试双触点。
+
+本地验证静态托管版本：
+
+```sh
+node tools/prepare_pages.mjs --input Releases/pages-upload --output Releases/pages-site
+python3 -m http.server 8766 --directory Releases/pages-site
+```
+
+转换不修改 Unity 游戏逻辑或原始构建。普通静态版本无需 `.br` 响应头；首次下载大小取决于托管端传输压缩。Pages 只负责文件存储与流量，游戏物理和渲染在访客设备运行。作者电脑关机不影响在线试玩，但访客仍需联网加载文件；没有离线安装或离线缓存保证。云端发布任务仅在更新时短暂运行，不存在常驻游戏服务器。
+
+Unity 编译和玩法自检仍使用本机工具；此工作流仅发布已完成的构建，不代替游戏测试。
